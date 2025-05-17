@@ -10,5 +10,7 @@ abstract class Peca {
     public String getCor() {
         return cor;
     }
+    
+    public abstract String getTipo();
 
 }

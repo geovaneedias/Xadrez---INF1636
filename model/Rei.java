@@ -7,7 +7,7 @@ class Rei extends Peca {
     }
     
     public String getTipo() {
-        return "Torre";
+        return "Rei";
     }
 
     public boolean mover(String coordenadaAtual, String coordenadaDestino, Tabuleiro tabuleiro) {

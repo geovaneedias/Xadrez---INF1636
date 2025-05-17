@@ -37,6 +37,13 @@ class Bispo extends Peca {
 
         int linha = linhaAtual + direcaoLinha;
         int coluna = colunaAtual + direcaoColuna;
+        
+        // Verifica se o destino está vazio ou tem peça adversária
+        Peca pecaNoDestino = tabuleiro.getPeca(linhaDestino, colunaDestino);
+        if (pecaNoDestino != null && pecaNoDestino.getCor().equals(this.cor)) {
+            System.out.println("Movimento inválido: destino ocupado por peça da mesma cor.");
+            return false;
+        }
 
         // Verifica peças no caminho
         while (linha != linhaDestino && coluna != colunaDestino) {

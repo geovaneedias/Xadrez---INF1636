@@ -50,10 +50,10 @@ class Torre extends Peca {
             }
         }
 
-        // Verifica peça no destino (captura)
-        Object pecaNoDestino = tabuleiro.getPeca(linhaDestino, colunaDestino);
-        if (pecaNoDestino != null && ((Torre)pecaNoDestino).getCor().equals(this.cor)) {
-            System.out.println("Não pode capturar peça da mesma cor!");
+        // Verifica se o destino está vazio ou tem peça adversária
+        Peca pecaNoDestino = tabuleiro.getPeca(linhaDestino, colunaDestino);
+        if (pecaNoDestino != null && (pecaNoDestino).getCor().equals(this.cor)) {
+            System.out.println("Movimento inválido: destino ocupado por peça da mesma cor.");
             return false;
         }
 
