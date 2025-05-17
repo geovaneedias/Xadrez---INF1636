@@ -1,10 +1,10 @@
 package model;
 
 class Tabuleiro {
-    Object[][] tabuleiro;
+    Peca[][] tabuleiro;
 
     public Tabuleiro() {
-        tabuleiro = new Object[8][8];
+        tabuleiro = new Peca[8][8];
         inicializarPecasJogador(0, "branca"); // Jogador 1 (peças brancas)
         inicializarPecasJogador(7, "preta");  // Jogador 2 (peças pretas)
         inicializarPeoes();
@@ -38,5 +38,14 @@ class Tabuleiro {
         for (int coluna = 0; coluna < 8; coluna++) {
             tabuleiro[6][coluna] = new Peao("preta");
         }
+    }
+
+    public Peca getPeca(int linha, int coluna) {
+        return tabuleiro[linha][coluna];
+    }
+
+    public void atualizarPosicao(int linhaAtual, int colunaAtual, int novaLinha, int novaColuna, Peca peca) {
+        tabuleiro[linhaAtual][colunaAtual] = null;
+        tabuleiro[novaLinha][novaColuna] = peca;
     }
 }
