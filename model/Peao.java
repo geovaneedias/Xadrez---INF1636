@@ -12,34 +12,54 @@ class Peao extends Peca {
         return "Peao";
     }
 
-    public boolean mover(int tipoMovimento, String coordenadaAtual, Tabuleiro tabuleiro) {
-        if (tipoMovimento == 2 && !posicao.equals("original")) {
-            System.out.println("Erro: Peão só pode avançar 2 casas na posição inicial.");
+    public boolean mover(String coordenadaAtual, String coordenadaDestino, Tabuleiro tabuleiro) {
+        char colunaAtualChar = coordenadaAtual.toLowerCase().charAt(0);
+        char linhaAtualChar = coordenadaAtual.charAt(1);
+        int colunaAtual = colunaAtualChar - 'a';
+        int linhaAtual = 8 - (linhaAtualChar - '0');
+
+        char colunaDestinoChar = coordenadaDestino.toLowerCase().charAt(0);
+        char linhaDestinoChar = coordenadaDestino.charAt(1);
+        int colunaDestino = colunaDestinoChar - 'a';
+        int linhaDestino = 8 - (linhaDestinoChar - '0');
+
+        int diferencaLinha = linhaDestino - linhaAtual;
+        int diferencaColuna = colunaDestino - colunaAtual;
+
+        if (diferencaColuna != 0) {
+            System.out.println("Movimento inválido para o peão: não pode mover na horizontal.");
             return false;
         }
 
-        // Converte coordenada (ex: "e2") para índices da matriz
-        char colunaChar = coordenadaAtual.toLowerCase().charAt(0);
-        char linhaChar = coordenadaAtual.charAt(1);
-        int coluna = colunaChar - 'a';  // 'a' -> 0, 'b' -> 1, etc.
-        int linha = 8 - Character.getNumericValue(linhaChar);  // '2' -> 6, '7' -> 1, etc.
-
-        // Direção do movimento (peões brancos sobem, pretos descem)
         int direcao = cor.equals("branca") ? -1 : 1;
 
-        // Valida movimento
-        if (tipoMovimento == 1 || tipoMovimento == 2) {
-            int novaLinha = linha + (direcao * tipoMovimento);
-
-            // Verifica se a nova posição está dentro do tabuleiro
-            if (novaLinha >= 0 && novaLinha < 8) {
-                tabuleiro.atualizarPosicao(linha, coluna, novaLinha, coluna, this);
+        if (diferencaLinha == direcao) {
+            if (tabuleiro.getPeca(linhaDestino, colunaDestino) == null) {
+                tabuleiro.atualizarPosicao(linhaAtual, colunaAtual, linhaDestino, colunaDestino, this);
                 posicao = "diferente";
                 return true;
+            } else {
+                System.out.println("Movimento inválido: destino ocupado.");
+                return false;
+            }
+        }
+
+        if (diferencaLinha == 2 * direcao && posicao.equals("original")) {
+            int linhaIntermediaria = linhaAtual + direcao;
+
+            if (tabuleiro.getPeca(linhaIntermediaria, colunaAtual) == null &&
+                tabuleiro.getPeca(linhaDestino, colunaDestino) == null) {
+                tabuleiro.atualizarPosicao(linhaAtual, colunaAtual, linhaDestino, colunaDestino, this);
+                posicao = "diferente";
+                return true;
+            } else {
+                System.out.println("Movimento inválido: caminho bloqueado.");
+                return false;
             }
         }
 
         System.out.println("Movimento inválido para o peão.");
         return false;
     }
+
 }

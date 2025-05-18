@@ -12,5 +12,7 @@ abstract class Peca {
     }
     
     public abstract String getTipo();
+    
+    public abstract boolean mover(String coordenadaAtual, String coordenadaDestino, Tabuleiro tabuleiro);
 
 }

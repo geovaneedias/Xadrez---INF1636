@@ -5,8 +5,8 @@ class Tabuleiro {
 
     public Tabuleiro() {
         tabuleiro = new Peca[8][8];
-        inicializarPecasJogador(0, "branca"); // Jogador 1 (peças brancas)
-        inicializarPecasJogador(7, "preta");  // Jogador 2 (peças pretas)
+        inicializarPecasJogador(0, "preta"); // Jogador 1 (peças brancas)
+        inicializarPecasJogador(7, "branca");  // Jogador 2 (peças pretas)
         inicializarPeoes();
     }
 
@@ -29,14 +29,14 @@ class Tabuleiro {
     }
 
     private void inicializarPeoes() {
-        // Peões brancos (linha 1)
+        // Peões brancos (linha 6)
         for (int coluna = 0; coluna < 8; coluna++) {
-            tabuleiro[1][coluna] = new Peao("branca");
+            tabuleiro[6][coluna] = new Peao("branca");
         }
-        
-        // Peões pretos (linha 6)
+
+        // Peões pretos (linha 1)
         for (int coluna = 0; coluna < 8; coluna++) {
-            tabuleiro[6][coluna] = new Peao("preta");
+            tabuleiro[1][coluna] = new Peao("preta");
         }
     }
 
@@ -44,8 +44,30 @@ class Tabuleiro {
         return tabuleiro[linha][coluna];
     }
 
-    public void atualizarPosicao(int linhaAtual, int colunaAtual, int novaLinha, int novaColuna, Peca peca) {
+    void atualizarPosicao(int linhaAtual, int colunaAtual, int novaLinha, int novaColuna, Peca peca) {
         tabuleiro[linhaAtual][colunaAtual] = null;
         tabuleiro[novaLinha][novaColuna] = peca;
+    }
+    
+    public void imprimirTabuleiro() {
+        System.out.println("  a b c d e f g h");
+        for (int linha = 0; linha < 8; linha++) {
+            System.out.print((8 - linha) + " ");
+            for (int coluna = 0; coluna < 8; coluna++) {
+                Peca peca = tabuleiro[linha][coluna];
+                if (peca == null) {
+                    System.out.print(". ");
+                } else {
+                    String letra = peca.getTipo().substring(0, 1);
+                    if (peca.getCor().equals("branca")) {
+                        System.out.print(letra.toUpperCase() + " ");
+                    } else {
+                        System.out.print(letra.toLowerCase() + " ");
+                    }
+                }
+            }
+            System.out.println(8 - linha);
+        }
+        System.out.println("  a b c d e f g h");
     }
 }

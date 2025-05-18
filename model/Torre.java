@@ -52,9 +52,14 @@ class Torre extends Peca {
 
         // Verifica se o destino está vazio ou tem peça adversária
         Peca pecaNoDestino = tabuleiro.getPeca(linhaDestino, colunaDestino);
-        if (pecaNoDestino != null && (pecaNoDestino).getCor().equals(this.cor)) {
-            System.out.println("Movimento inválido: destino ocupado por peça da mesma cor.");
-            return false;
+        if (pecaNoDestino != null) {
+            if (pecaNoDestino.getCor().equals(this.cor)) {
+                System.out.println("Movimento inválido: destino ocupado por peça da mesma cor.");
+                return false;
+            } else {
+                System.out.println("Peça inimiga removida");
+                // Aqui poderia haver lógica para remoção/captura
+            }
         }
 
         // Atualiza tabuleiro
